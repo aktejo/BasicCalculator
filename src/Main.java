@@ -88,6 +88,8 @@ public class Main implements ActionListener {
     public double a;
     public double b;
     public String operation;
+    boolean isOperation = false;
+    public String secondNumber;
 
     public JLabel result;
     public JLabel space;
@@ -169,7 +171,6 @@ public class Main implements ActionListener {
         panel.add(button2);
         panel.add(button3);
         panel.add(plus);
-        panel.add(space);
         panel.add(decimal);
         panel.add(button0);
         panel.add(exponent);
@@ -192,6 +193,7 @@ public class Main implements ActionListener {
 //        button4.setSize(100, 100);
 //        button5.setSize(100, 100);
         frame.setSize(600, 400);
+        labelPanel.setSize(600, 50);
         //frame.pack();
         frame.setVisible(true);
 
@@ -205,82 +207,148 @@ public class Main implements ActionListener {
 
         if (source == button0) {
             result.setText(result.getText() + "0");
-            equation.setText(equation.getText() + "0");
+            if (!isOperation) {
+                    equation.setText(equation.getText() + "0");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "0";
+            }
         } else if (source == button1) {
             result.setText(result.getText() + "1");
-            equation.setText(equation.getText() + "1");
+            if (!isOperation) {
+                    equation.setText(equation.getText() + "1");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "1";
+            }
         } else if (source == button2) {
             result.setText(result.getText() + "2");
-            equation.setText(equation.getText() + "2");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "2");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "2";
+            }
         } else if (source == button3) {
             result.setText(result.getText() + "3");
-            equation.setText(equation.getText() + "3");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "3");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "3";
+            }
         } else if (source == button4) {
             result.setText(result.getText() + "4");
-            equation.setText(equation.getText() + "4");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "4");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "4";
+            }
         } else if (source == button5) {
             result.setText(result.getText() + "5");
-            equation.setText(equation.getText() + "5");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "5");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "5";
+            }
         } else if (source == button6) {
             result.setText(result.getText() + "6");
-            equation.setText(equation.getText() + "6");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "6");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "6";
+            }
         } else if (source == button7) {
             result.setText(result.getText() + "7");
-            equation.setText(equation.getText() + "7");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "7");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "7";
+            }
         } else if (source == button8) {
             result.setText(result.getText() + "8");
-            equation.setText(equation.getText() + "8");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "8");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "8";
+            }
         } else if (source == button9) {
             result.setText(result.getText() + "9");
-            equation.setText(equation.getText() + "9");
+            if (!isOperation) {
+                equation.setText(equation.getText() + "9");
+            } else if (isOperation) {
+                secondNumber = secondNumber + "9";
+            }
         } else if (source == decimal) {
             result.setText(result.getText() + ".");
-            equation.setText(equation.getText() + ".");
-        } else if (source == negative && !(result.getText().substring(0,1).equals("-"))) {
-            System.out.println("substring: " + result.getText().substring(0,1));
-            result.setText("-" + result.getText());
-            System.out.println("1");
-            equation.setText("-" + equation.getText());
-        } else if (source == negative && (result.getText().substring(0,1).equals("-"))) {
-            equation.setText("-" + equation.getText());
-            System.out.println("2");
-            result.setText(result.getText().substring(1));
+            if (!isOperation) {
+                equation.setText(equation.getText() + ".");
+            } else if (isOperation) {
+                secondNumber = secondNumber + ".";
+            }
+        } else if (!isOperation) {
+            if (source == negative && !(result.getText().substring(0, 1).equals("-"))) {
+                System.out.println("substring: " + result.getText().substring(0, 1));
+                result.setText("-" + result.getText());
+                System.out.println("1");
+                equation.setText("-" + equation.getText());
+            } else if (source == negative && (result.getText().substring(0, 1).equals("-"))) {
+                //equation.setText("-" + equation.getText());
+                System.out.println("2");
+                result.setText(result.getText().substring(1));
+                equation.setText(equation.getText().substring(1));            }
+        } else if (isOperation) {
+            if (source == negative && !(result.getText().substring(0, 1).equals("-"))) {
+                System.out.println("substring: " + result.getText().substring(0, 1));
+                result.setText("-" + result.getText());
+                System.out.println("1");
+                secondNumber = (result.getText());
+            } else if (source == negative && (result.getText().substring(0, 1).equals("-"))) {
+                //equation.setText("-" + equation.getText());
+                System.out.println("2");
+                result.setText(result.getText().substring(1));
+                //equation.setText(equation.getText() + result.getText());
+                secondNumber = (result.getText());
+            }
         }
         if (source == plus) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "plus";
             equation.setText(equation.getText() + " + ");
+            isOperation = true;
         } else if (source == minus) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "minus";
             equation.setText(equation.getText() + " - ");
+            isOperation = true;
         } else if (source == multiply) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "multiply";
             equation.setText(equation.getText() + " * ");
+            isOperation = true;
         } else if (source == divide) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "divide";
             equation.setText(equation.getText() + " / ");
+            isOperation = true;
         } else if (source == modulus) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "modulus";
             equation.setText(equation.getText() + " % ");
+            isOperation = true;
         } else if (source == exponent) {
             a = parseDouble(result.getText());
             result.setText("");
             operation = "exponent";
             equation.setText(equation.getText() + " ^ ");
+            isOperation = true;
         }
         if (source == equals) {
             b = parseDouble(result.getText());
             result.setText("");
-            equation.setText(equation.getText() + " = ");
+            equation.setText(equation.getText() + secondNumber + " = ");
+
 
             if (operation == "plus") {
                 result.setText("" + myCalculator.add(a, b));
@@ -303,6 +371,7 @@ public class Main implements ActionListener {
             b = 0;
             operation = "";
             equation.setText("");
+            isOperation = false;
         }
 
     }
